@@ -42,5 +42,9 @@ next-env.d.ts
 
 # lab4 secrets
 server/.env
+!server/.env.example
 
 atlas-credentials.env
+
+mqtt/data/*
+mqtt/log/*

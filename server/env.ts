@@ -1,9 +1,17 @@
-import "dotenv/config";
+import path from "path";
+import dotenv from "dotenv";
+
+// Resolve .env relative to THIS file, not process.cwd(). The npm scripts are
+// run from the repo root (`npm run server:dev`), so a bare `dotenv/config`
+// would look for lab4/.env and silently miss lab4/server/.env.
+dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 function required(name: string, fallback?: string): string {
   const v = process.env[name] ?? fallback;
   if (v === undefined) {
-    throw new Error(`Missing required env var ${name} (set it in server/.env)`);
+    throw new Error(
+      `Missing required env var ${name}. Expected it in ${path.resolve(__dirname, ".env")}`
+    );
   }
   return v;
 }
